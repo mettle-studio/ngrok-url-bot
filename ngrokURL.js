@@ -1,6 +1,7 @@
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 const cron = require("node-cron");
+const os = require("os");
 
 const postURL = () => {
   //add a small timeout to allow the ngrok server to start
@@ -19,7 +20,7 @@ const postURL = () => {
           },
           body: JSON.stringify({
             channel: process.env.SLACK_CHANNEL,
-            text: `ngrok url:${secureTunnel.public_url}`,
+            text: `ngrok url for ${os.hostname()}: ${secureTunnel.public_url}`,
           }),
         });
       })
