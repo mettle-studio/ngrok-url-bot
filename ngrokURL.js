@@ -10,7 +10,7 @@ const postURL = () => {
       .then((res) => res.json())
       .then((json) => json.tunnels.find((tunnel) => tunnel.proto === "tcp"))
       .then((secureTunnel) => {
-        console.log(secureTunnel.public_url);
+        if (!secureTunnel?.public_url) return;
         //send url to slack channel
         fetch("https://slack.com/api/chat.postMessage", {
           method: "post",
